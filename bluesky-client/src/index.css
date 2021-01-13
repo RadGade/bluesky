@@ -1,0 +1,16 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0, auto;
+  padding: 0;
+  background-color: #8ec5fc;
+  line-height: 1.15;
+}

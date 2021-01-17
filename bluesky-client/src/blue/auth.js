@@ -12,12 +12,11 @@ function auth({alias, pass}) {
       } else {
         db.user().recall({ sessionStorage: true }, (user) => {
           console.log("recall", user.put.alias);
-          window.sessionStorage.setItem("pair", JSON.stringify(user.put))
-          window.sessionStorage.setItem("user", user.put.pub);
-          window.sessionStorage.setItem("epub", user.sea.epub);
         });
         window.sessionStorage.setItem("isAuth", true);
-
+        window.sessionStorage.setItem("pair", JSON.stringify(ack.put))
+        window.sessionStorage.setItem("user", ack.put.pub);
+        window.sessionStorage.setItem("epub", ack.sea.epub);
         return res(ack);
       }
     });

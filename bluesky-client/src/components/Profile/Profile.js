@@ -27,7 +27,12 @@ const Wrapper = styled.div`
 const Profile = () => {
   const { handle } = useParams();
   console.log(handle)
-  db.user(handle).get("bio").once(console.log)
+  db.user(handle)
+  .get('Bio')
+  .on((ack) => {
+    console.log(ack)
+  })
+
 
 	const data = {
 		profile : {

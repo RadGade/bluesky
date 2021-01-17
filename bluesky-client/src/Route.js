@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
+  HashRouter,
   Switch,
   Route,
   Redirect,
@@ -19,7 +19,7 @@ import EditProfile from "./components/Profile/EditProfile";
 
 const AppRouter = () => {
   return (
-    <Router>
+    <HashRouter>
       <Nav />
       <Layout>
         <Switch>
@@ -39,7 +39,7 @@ const AppRouter = () => {
         </Switch>
         <Suggestion />
       </Layout>
-    </Router>
+    </HashRouter>
   );
 };
 

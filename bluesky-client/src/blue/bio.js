@@ -5,10 +5,18 @@ async function addUserInfo({bio, pub, firstname, lastname, handle, email, pair})
   var encryptmail = await SEA.encrypt(email, pair)
   var info = {
     bio: bio,
+    coverPhoto : "",
+    avatar : "",
     firstname: firstname,
     lastname : lastname,
     handle : handle,
     email: encryptmail,
+    location: "",
+    website: "",
+    dob : "",
+    followersCount : 0,
+    followingCount : 0,
+    tweetsCount : 0,
     pub: pub
   };
   console.log(info)

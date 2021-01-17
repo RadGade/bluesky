@@ -6,15 +6,15 @@ import "gun/lib/webrtc";
 
 var peerList = [
     "http://localhost:8765/gun",
-    "https://gunjs.herokuapp.com/gun",
-    "https://www.raygun.live/gun",
-    "https://e2eec.herokuapp.com/gun",
-    "http://gun-matrix.herokuapp.com/gun",
-    "https://dletta.rig.airfaas.com/gun",
+    // "https://gunjs.herokuapp.com/gun",
+    // "https://www.raygun.live/gun",
+    // "https://e2eec.herokuapp.com/gun",
+    // "http://gun-matrix.herokuapp.com/gun",
+    // "https://dletta.rig.airfaas.com/gun",
   ];
   const db = Gun({
     peers: peerList,
-    localStorage: false,
+    localStorage: true,
     rindexed : true
   });
 

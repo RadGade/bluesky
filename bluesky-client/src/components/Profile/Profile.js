@@ -5,6 +5,7 @@ import Header from "../Header";
 import ProfileInfo from "./ProfileInfo";
 import Tweet from "../Tweet/Tweet";
 import Loader from "../Loader";
+import db from "../../blue/db";
 
 
 const Wrapper = styled.div`
@@ -25,6 +26,8 @@ const Wrapper = styled.div`
 
 const Profile = () => {
   const { handle } = useParams();
+  console.log(handle)
+  db.user(handle).get("bio").once(console.log)
 
 	const data = {
 		profile : {

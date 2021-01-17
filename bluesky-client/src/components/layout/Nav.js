@@ -99,7 +99,7 @@ const Wrapper = styled.nav`
 
 const Nav = () => {
   const user = {
-    handel : "jellysandwich"
+    pub : window.sessionStorage.getItem("user")
   }
 
   return (
@@ -131,7 +131,7 @@ const Nav = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink activeClassName="selected" to={`/${user.handle}`}>
+          <NavLink activeClassName="selected" to={`/${user.pub}`}>
             <ProfileIcon /> <span>Profile</span>
           </NavLink>
         </li>

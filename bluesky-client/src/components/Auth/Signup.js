@@ -6,6 +6,7 @@ import Input from ".././Input";
 import Button from "../../styles/Button";
 import Form from "../../styles/Form";
 import { displayError } from "../../utils";
+import { create } from "../../blue/auth";
 
 
 export default ({ changeToLogin }) => {
@@ -47,27 +48,24 @@ export default ({ changeToLogin }) => {
       );
     }
 
-    try {
 
-          // firstname: firstname.value,
-          // lastname: lastname.value,
-          // handle: handle.value,
-          // email: email.value,
-          // password: password.value,
+ await create({ firstname : firstname.value,
+  email: email.value,
+  lastname: lastname.value,
+  handle : handle.value,
+  pass : password.value,})
+  .then((ack)=>{
+    console.log("ack")
+    toast.success(`You are logged in, ${handle.value}`);
+  })
+  .catch((err) => {
+    toast.error(err)
+  })
 
-      console.log("done")
-      toast.success("You are logged in");
-    } catch (err) {
-      return displayError(err);
-    }
-
-    [firstname, lastname, handle, email, password].map((field) =>
-      field.setValue("")
-    );
   };
 
   return (
-    <Form center>
+    <Form center onSubmit={handleSignup}>
       <div className="group-input">
         <Input
           text="First Name"

@@ -8,7 +8,6 @@ import {
 import Layout from "./styles/Layout";
 
 import Nav from "./components/layout/Nav";
-import Auth from "./components/Auth/Auth";
 import Home from "./pages/Home";
 import MasterTweet from "./components/Tweet/MasterTweet";
 import Profile from "./components/Profile/Profile";
@@ -25,7 +24,7 @@ const AppRouter = () => {
       <Layout>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/auth" component={Auth} />
+         
           <Route exact path="/explore" component={Explore} />
           <Route exact path="/notifications" component={Notifications} />
           <Route exact path="/bookmarks" component={Bookmarks} />

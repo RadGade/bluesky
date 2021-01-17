@@ -5,37 +5,37 @@ import Input from ".././Input";
 import Button from "../../styles/Button";
 import Form from "../../styles/Form";
 import { displayError } from "../../utils"; 
-import {auth} from "../../blue/blue" 
+import { auth } from "../../blue/auth";
 
 export default ({ changeToSignup }) => {
-  const email = useInput("");
+  const handle = useInput("");
   const password = useInput("");
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!email.value || !password.value) {
+    if (!handle.value || !password.value) {
       return toast.error("You need to fill all the fields");
     }
 
-    try {
-      console.log("hi")
+    await auth(
+      {alias : handle.value,
+     pass: password.value})
+      .then((ack)=>{
+        console.log(ack)
+        
+        toast.success(`You are logged in, ${handle.value}`);
 
-      toast.success(`You are logged in`);
-    } catch (err) {
-      return displayError(err);
-    }
+      })
+      .catch((err) => {
+        toast.error(err)
+      })
 
-    [email, password].map((field) => field.setValue(""));
+    [handle, password].map((field) => field.setValue(""));
   };
 
   return (
-    <Form center onSubmit={}>
-      <Input
-        text="Email"
-        type="email"
-        value={email.value}
-        onChange={email.onChange}
-      />
+    <Form center onSubmit={handleLogin} >
+      <Input text="Handle" value={handle.value} onChange={handle.onChange} />
       <Input
         text="Password"
         type="password"
@@ -43,8 +43,8 @@ export default ({ changeToSignup }) => {
         onChange={password.onChange}
       />
 
-      <Button xl outline disabled={loading} type="submit">
-        {loading ? "Logging in" : "Login"}
+      <Button xl outline type="submit">
+       Login
       </Button>
       <span>or</span>
       <Button xl type="button" onClick={changeToSignup}>

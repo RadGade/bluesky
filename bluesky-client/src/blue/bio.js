@@ -1,13 +1,22 @@
 import db  from "./db";
 import { v4 as uuidv4 } from "uuid";
-function addUserInfo(bio, pub) {
+import { SEA } from "gun";
+async function addUserInfo({bio, pub, firstname, lastname, handle, email, pair}) {
+  var encryptmail = await SEA.encrypt(email, pair)
   var info = {
     bio: bio,
+    firstname: firstname,
+    lastname : lastname,
+    handle : handle,
+    email: encryptmail,
+    pub: pub
   };
-  console.log(info);
+  console.log(info)
   var BioAck = new Promise((res, rej) => {
     db.user()
-      .get("Bio")
+      .get("Bio", (ack) => {
+        console.log(ack)
+      })
       .put(info, (ack) => {
         if (ack.err) {
           console.log(ack);

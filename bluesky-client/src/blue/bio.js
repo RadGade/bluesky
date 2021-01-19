@@ -11,9 +11,9 @@ async function addUserInfo({bio, pub, firstname, lastname, handle, email, pair})
     lastname : lastname,
     handle : handle,
     email: encryptmail,
-    location: "",
-    website: "",
-    dob : "",
+    location: null,
+    website: null,
+    dob : null,
     followersCount : 0,
     followingCount : 0,
     tweetsCount : 0,
@@ -25,7 +25,7 @@ async function addUserInfo({bio, pub, firstname, lastname, handle, email, pair})
       .get("Bio", (ack) => {
         console.log(ack)
       })
-      .put(info, (ack) => {
+      .set(info, (ack) => {
         if (ack.err) {
           console.log(ack);
           return rej(ack);
@@ -43,7 +43,7 @@ function uploadProfilePic(dataURI) {
   var pp = new Promise((res, rej) => {
     db.user()
       .get("Bio")
-      .get("ProfilePic")
+      .get("avatar")
       .put(dataURI, (ack) => {
         if (ack.err) {
           console.log(ack);
@@ -59,10 +59,10 @@ function uploadProfilePic(dataURI) {
 }
 
 function uploadBackgroundPic(dataURI) {
-  var bp = new Promise((res, rej) => {
+  var pp = new Promise((res, rej) => {
     db.user()
       .get("Bio")
-      .get("BackgroundPic")
+      .get("coverPhoto")
       .put(dataURI, (ack) => {
         if (ack.err) {
           console.log(ack);
@@ -74,7 +74,7 @@ function uploadBackgroundPic(dataURI) {
       });
   });
 
-  return bp;
+  return pp;
 }
 
 export { addUserInfo, uploadProfilePic, uploadBackgroundPic };

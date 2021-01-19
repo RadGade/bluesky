@@ -5,12 +5,12 @@ import { v4 as uuidv4 } from "uuid";
 console.log(db)
 function auth({alias, pass}) {
   var user = new Promise((res, rej) => {
-    db.user().auth(alias, pass, (ack) => {
+    db.user().auth(alias, pass, async (ack) => {
       console.log(alias, pass)
       if (ack.err) {
         return rej(ack.err);
       } else {
-        db.user().recall({ sessionStorage: true }, (user) => {
+        await db.user().recall({ sessionStorage: true }, (user) => {
           console.log("recall", user.put.alias);
         });
         window.sessionStorage.setItem("isAuth", true);

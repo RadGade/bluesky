@@ -99,11 +99,12 @@ const ProfileInfo = ({ profile }) => {
     handle,
     fullname,
   } = profile;
+  
 
   return (
     <Wrapper>
-      <CoverPhoto src={coverPhoto} alt="cover" />
-      <Avatar className="avatar" lg src={avatar} alt="profile" />
+      <CoverPhoto src={!coverPhoto ? "/images/default_coverphoto.jpg" : `https://siasky.net/${coverPhoto}`} alt="cover" />
+      <Avatar className="avatar" lg src={!avatar ? "/images/default_avatar.jpg" : `https://siasky.net/${avatar}`} alt="profile" />
 
       {isSelf ? (
         <Link to="/settings/profile">

@@ -19,6 +19,7 @@ const App = () => {
    
   db.on('auth', ack => { 
     setIsAuth(true); 
+    
     console.log('Authentication was successful: ', ack); })
   return (
     <StyledThemeProvider theme={theme}>

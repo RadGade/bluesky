@@ -1,5 +1,6 @@
-import React from "react";
+import React , {useState, useEffect} from "react";
 import styled from "styled-components";
+import db from "../../blue/db";
 import Header from "../Header";
 import Loader from "../Loader";
 import EditProfileForm from "./EditProfileForm";
@@ -54,28 +55,42 @@ const Wrapper = styled.div`
 `;
 
 const EditProfile = () => {
-	const data = {
-		profile : {
-		  id : 345,
-		  coverPhoto : "https://pbs.twimg.com/profile_banners/1042345436051169285/1609892461/1500x500",
-		  avatar : "https://pbs.twimg.com/profile_images/1346612692891664386/Vs5A1qzM_400x400.jpg",
-		  bio : "Let the game begin",
-		  location : "Adeliade",
-		  website : "gun.eco",
-		  isSelf : true,
-		  dob : "28.06.2004",
-		  isFollowing : true,
-		  followersCount : 23,
-		  followingCount : 4,
-		  handle : "@jellysandwich",
-		  fullname : "Jellymaster",
-		  tweets : []
-		}
-	  };
-	const loading = true;
-
-	if (loading) return <Loader />;
-
+	
+	const [ackData, setAckData] = useState({});
+  
+  
+  
+	useEffect(() => {
+		const handle = window.sessionStorage.getItem("user")
+	  db.user(handle)
+	  .get('Bio')
+	  .on((ack) => {
+		setAckData(ack);
+		
+	  });
+	})
+  
+	  const data = {
+		  profile : {
+			id : ackData.pub,
+			coverPhoto : ackData.coverPhoto,
+			avatar : ackData.avatar,
+			bio : ackData.bio,
+			location : ackData.location,
+			website : ackData.website,
+			dob : ackData.dob,
+			isFollowing : true,
+			followersCount : ackData.followersCount,
+			followingCount : ackData.followingCount,
+			handle : ackData.handle,
+			firstname : ackData.firstname,
+			lastname : ackData.lastname,
+			tweets : [],
+			tweetsCount : ackData.tweetsCount
+		  }
+		};
+		console.log(data)
+if (data.profile.id == undefined) return <Loader />;
 	return (
 		<Wrapper>
 			<Header>Edit Profile</Header>

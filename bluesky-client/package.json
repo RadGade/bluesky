@@ -4,10 +4,10 @@
   "description": "minimal react boilerplate",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development",
+    "start": "webpack-dev-server --config ./webpack.config.js --mode development --host 0.0.0.0",
     "test": "echo \"No test specified\" && exit 0"
   },
-  "author": "Serg Shitikov <936x936@gmail.com>",
+  "author": "Skyfall ",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -25,8 +25,6 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
     "@apollo/react-hooks": "^3.1.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -38,11 +36,14 @@
     "husky": "^4.2.5",
     "moment": "^2.24.0",
     "pretty-quick": "^2.0.1",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "react-textarea-autosize": "^7.1.2",
     "react-toastify": "^5.5.0",
     "reactjs-popup": "^1.5.0",
+    "skynet-js": "^2.9.0",
     "styled-components": "^5.1.0"
   }
 }

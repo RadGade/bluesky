@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../Header";
@@ -26,34 +26,50 @@ const Wrapper = styled.div`
 
 const Profile = () => {
   const { handle } = useParams();
-  console.log(handle)
-  db.user(handle)
-  .get('Bio')
-  .on((ack) => {
-    console.log(ack)
-  })
+  const [isSelf, setIsSelf] = useState(false);
+  const [ackData, setAckData] = useState({});
+  const [avatar, setAvatar] = useState("");
 
+
+  useEffect(() => {
+    const selfPub = window.sessionStorage.getItem("user");
+    if(handle == selfPub) {
+      setIsSelf(true);
+      console.log("its me")
+    } else {
+      console.log("this ain't you");
+    };
+
+    db.user(handle)
+    .get('Bio')
+    .on((ack) => {
+      setAckData(ack);
+      console.log(ack)
+    });
+  
+  })
 
 	const data = {
 		profile : {
-		  id : 345,
-		  coverPhoto : "https://pbs.twimg.com/profile_banners/1042345436051169285/1609892461/1500x500",
-		  avatar : "https://pbs.twimg.com/profile_images/1346612692891664386/Vs5A1qzM_400x400.jpg",
-		  bio : "Let the game begin",
-		  location : "Adeliade",
-		  website : "gun.eco",
-		  isSelf : true,
-		  dob : "28.06.2004",
+		  id : ackData.pub,
+		  coverPhoto : ackData.coverPhoto,
+		  avatar : ackData.avatar,
+		  bio : ackData.bio,
+		  location : ackData.location,
+		  website : ackData.website,
+		  isSelf : isSelf,
+		  dob : ackData.dob,
 		  isFollowing : true,
-		  followersCount : 23,
-		  followingCount : 4,
-		  handle : "@jellysandwich",
-		  fullname : "Jellymaster",
+		  followersCount : ackData.followersCount,
+		  followingCount : ackData.followingCount,
+		  handle : ackData.handle,
+		  fullname : `${ackData.firstname} ${ackData.lastname}`,
       tweets : [],
-      tweetsCount : 0
+      tweetsCount : ackData.tweetsCount
 		}
 	  };
-  // if (loading) return <Loader />;
+    if (data.profile.id == undefined) return <Loader />;
+
 
   return (
     <Wrapper>

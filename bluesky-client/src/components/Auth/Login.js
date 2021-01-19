@@ -6,9 +6,11 @@ import Button from "../../styles/Button";
 import Form from "../../styles/Form";
 import { displayError } from "../../utils"; 
 import { auth } from "../../blue/auth";
+import { useHistory } from "react-router-dom";
 
 export default ({ changeToSignup }) => {
   const handle = useInput("");
+  const history = useHistory();
   const password = useInput("");
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,7 +24,6 @@ export default ({ changeToSignup }) => {
      pass: password.value})
       .then((ack)=>{
         console.log(ack)
-        
         toast.success(`You are logged in, ${handle.value}`);
 
       })

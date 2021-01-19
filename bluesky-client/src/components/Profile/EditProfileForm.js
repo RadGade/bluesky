@@ -10,7 +10,10 @@ import Form from "../../styles/Form";
 import { displayError } from "../../utils";
 import CoverPhoto from "../../styles/CoverPhoto";
 import Avatar from "../../styles/Avatar";
-import { uploadImage } from "../../utils";
+import uploadImage from "../../blue/dCDN";
+import db from "../../blue/db";
+import { uploadBackgroundPic, uploadProfilePic } from "../../blue/bio";
+
 
 
 const EditProfileForm = ({ profile, history }) => {
@@ -25,7 +28,7 @@ const EditProfileForm = ({ profile, history }) => {
   const avatar = useInput(profile && profile.avatar);
   const bio = useInput(profile && profile.bio);
   const coverPhoto = useInput(profile && profile.coverPhoto);
-
+  console.log(firstname)
   const handle = profile && profile.handle;
 
   const handleEditProfile = async (e) => {
@@ -54,25 +57,40 @@ const EditProfileForm = ({ profile, history }) => {
       return displayError(err);
     }
 
-    [
-      firstname,
-      lastname,
-      dob,
-      location,
-      website,
-      avatar,
-      coverPhoto,
-    ].map((field) => field.setValue(""));
+    // [
+    //   firstname,
+    //   lastname,
+    //   dob,
+    //   location,
+    //   website,
+    //   avatar,
+    //   coverPhoto,
+    // ].map((field) => field.setValue(""));
 
     history.push(`/${handle}`);
   };
 
   const handleCoverPhoto = async (e) => {
+    uploadImage(e.target.files[0])
+    .then((ack) => {
+      console.log(ack);
+      
+      uploadBackgroundPic(ack).then(console.log)
+      
+    })
+    .catch((ack) => console.log(ack))
+  
    
   };
 
   const handleAvatar = async (e) => {
-   
+   uploadImage(e.target.files[0])
+   .then((ack) => {
+     console.log(ack);
+     uploadProfilePic(ack).then(console.log)
+     
+   })
+   .catch((ack) => console.log(ack))
   };
 
   return (
@@ -80,7 +98,7 @@ const EditProfileForm = ({ profile, history }) => {
       <div className="cover-photo">
         <label htmlFor="cover-photo-input">
           <CoverPhoto
-            src={coverPhotoState ? coverPhotoState : coverPhoto.value}
+            src={coverPhotoState ? coverPhotoState : !coverPhoto.value ? "/images/default_coverphoto.jpg" : `https://siasky.net/${coverPhoto.value}`}
             alt="cover"
           />
         </label>
@@ -91,7 +109,7 @@ const EditProfileForm = ({ profile, history }) => {
         <label htmlFor="avatar-input-file">
           <Avatar
             lg
-            src={avatarState ? avatarState : avatar.value}
+            src={avatarState ? avatarState : !avatar.value ? "/images/default_avatar.jpg" : `https://siasky.net/${avatar.value}`}
             alt="avatar"
           />
         </label>
@@ -139,9 +157,9 @@ const EditProfileForm = ({ profile, history }) => {
         value={location.value}
         onChange={location.onChange}
       />
-      <Button outline disabled={loading} type="submit">
+      {/* <Button outline disabled={loading} type="submit">
         {loading ? "Saving" : "Save"}
-      </Button>
+      </Button> */}
     </Form>
   );
 };
